@@ -6,6 +6,8 @@ Create some dossiers to share with players about their fellow field agents based
 
 I used Google forms to ask my players the questionaire then copied the answers from that into my OpenOffice Calc spreadsheet to load into this script.
 
+**[🔗 View Example Dossier (Agent Jim)](https://htmlpreview.github.io/?https://github.com/Brysonkeith/triangle-agency-dossier-generator/blob/main/dossiers/Agent_Jim_Dossier.html)** - This very basic example dossier is what will be generated with your inputted player answers.
+
 ## Installation
 
 ### Prerequisites
