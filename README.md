@@ -126,7 +126,7 @@ I'm absolutely enamored with this game since I found it at GenCon 2025
 
 I'm no frontend engineer, if you want to contribute feel free!
 
-This project is open source. Feel free to use, modify, and distribute for your TTRPG campaigns.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Troubleshooting
 
