@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Dossier - {name}</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .dossier {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 3px solid #000;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #ff0000;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .classification {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 5px 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .agent-info-header {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .agent-details {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .agent-name {
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #000;
+            letter-spacing: 1px;
+        }
+        
+        .physical-desc {
+            line-height: 1.6;
+            color: #333;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .photo-placeholder {
+            width: 150px;
+            height: 200px;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+            font-size: 12px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .key-terms {
+            width: 150px;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .key-term {
+            padding: 8px 10px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 2px;
+            border: 3px solid;
+            font-family: Impact, 'Arial Black', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .anomaly-term {
+            background-color: #2196F3 !important;
+            border-color: #0D47A1 !important;
+            color: white !important;
+        }
+        
+        .reality-term {
+            background-color: #FFC107 !important;
+            border-color: #E65100 !important;
+            color: #333 !important;
+        }
+        
+        .competency-term {
+            background-color: #F44336 !important;
+            border-color: #B71C1C !important;
+            color: white !important;
+        }
+        
+        .field {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+        
+        .field-label {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: #000;
+            border-left: 4px solid #ff0000;
+            padding-left: 10px;
+        }
+        
+        .field-value {
+            margin-left: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            width: auto;
+            display: block;
+        }
+        
+        .connections {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .connections-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ccc;
+            background-color: #f5f5f5;
+        }
+        
+        .stamp {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            transform: rotate(15deg);
+            color: #ff0000;
+            font-weight: bold;
+            border: 3px solid #ff0000;
+            padding: 5px 10px;
+            font-size: 16px;
+            opacity: 0.7;
+        }
+        
+        @media print {
+            body { margin: 0; }
+            .dossier { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dossier">
+        <div class="stamp">CONFIDENTIAL</div>
+        
+        <div class="header">
+            <div class="logo">▲ TRIANGLE AGENCY</div>
+            <div>Field Agent Personnel File</div>
+            <div class="classification">RESTRICTED ACCESS</div>
+        </div>
+        
+        <div class="content">
+            <div class="agent-info-header">
+                <div class="agent-details">
+                    <div class="agent-name">{name}</div>
+                    <div class="physical-desc">{looks}</div>
+                </div>
+                <div>
+                    <div class="photo-placeholder">
+                        {photo}
+                    </div>
+                    <div class="key-terms">
+                        <div class="key-term anomaly-term">{anomaly}</div>
+                        <div class="key-term reality-term">{reality}</div>
+                        <div class="key-term competency-term">{competency}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Anomaly First Contact Report</div>
+                <div class="field-value">{anomaly_contact}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Agency Acquisition Method</div>
+                <div class="field-value">{agency_contact}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Anomalous Manifestation Profile</div>
+                <div class="field-value">{power_visual}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Salary Classification</div>
+                <div class="field-value">{annual_salary}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Coffee Preparation Protocol</div>
+                <div class="field-value">{coffee}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Team Integration Assessment</div>
+                <div class="field-value">{collaboration}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Agent Excel, Adobe, and Google Suite Skills</div>
+                <div class="field-value">{work_experience}</div>
+            </div>
+            
+            <div class="connections">
+                <div class="connections-title">Personal Network & Emergency Protocols</div>
+                
+                <div class="field">
+                    <div class="field-label">Primary Emergency Contact</div>
+                    <div class="field-value">{primary_contact}</div>
+                </div>
+                
+                <div class="field">
+                    <div class="field-label">Known Associate #1</div>
+                    <div class="field-value">{first_connection}</div>
+                </div>
+                
+                <div class="field">
+                    <div class="field-label">Known Associate #2</div>
+                    <div class="field-value">{second_connection}</div>
+                </div>
+                
+                <div class="field">
+                    <div class="field-label">Known Associate #3</div>
+                    <div class="field-value">{third_connection}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Generated: {timestamp} | Classification Level: RESTRICTED<br>
+            This document contains sensitive information. Distribution limited to authorized personnel only.
+        </div>
+    </div>
+</body>
+</html>
