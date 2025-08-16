@@ -14,11 +14,12 @@
         }
         
         .dossier {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background-color: #fff;
             border: 3px solid #000;
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            position: relative;
         }
         
         .header {
@@ -46,7 +47,21 @@
         }
         
         .content {
-            padding: 30px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .main-content {
+            flex: 2;
+            padding: 30px 30px 30px 30px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            background-color: #f8f8f8;
+            border-left: 3px solid #ddd;
+            padding: 30px 20px;
+            min-height: 500px;
         }
         
         .agent-info-header {
@@ -154,6 +169,92 @@
             display: block;
         }
         
+        .sidebar-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .sidebar-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #000;
+            font-size: 14px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        
+        .sidebar-content {
+            margin-left: 14px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .salary-display {
+            background-color: #e8f5e8;
+            border: 2px solid #4CAF50;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        
+        .clearance-level {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .redacted-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border: 2px solid #ccc;
+        }
+        
+        .redacted-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #000;
+            border-left: 4px solid #ff0000;
+            padding-left: 10px;
+        }
+        
+        .redacted-bar {
+            background-color: #000;
+            height: 16px;
+            margin: 4px 0;
+            width: 100%;
+        }
+        
+        .redacted-bar.short {
+            width: 60%;
+        }
+        
+        .redacted-bar.medium {
+            width: 80%;
+        }
+        
+        .redacted-bar.long {
+            width: 95%;
+        }
+        
+        .redacted-notice {
+            font-style: italic;
+            color: #666;
+            font-size: 12px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
         .connections {
             background-color: #f9f9f9;
             border: 1px solid #ccc;
@@ -192,15 +293,45 @@
             opacity: 0.7;
         }
         
+        .file-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 10px;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 10px;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+        
         @media print {
             body { margin: 0; }
             .dossier { box-shadow: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            .sidebar {
+                border-left: none;
+                border-top: 3px solid #ddd;
+            }
         }
     </style>
 </head>
 <body>
     <div class="dossier">
+        <div class="file-number">FILE: TA-Jim-001</div>
         <div class="stamp">CONFIDENTIAL</div>
+        <div class="page-number">PAGE 1 OF 1</div>
         
         <div class="header">
             <div class="logo">▲ TRIANGLE AGENCY</div>
@@ -209,86 +340,119 @@
         </div>
         
         <div class="content">
-            <div class="agent-info-header">
-                <div class="agent-details">
-                    <div class="agent-name">Jim</div>
-                    <div class="physical-desc">Jim is very average</div>
-                </div>
-                <div>
-                    <div class="photo-placeholder">
-                        <img src="data:image/jpeg;base64,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" alt="Agent Photo" style="width: 150px; height: 200px; object-fit: cover;">
+            <div class="main-content">
+                <div class="agent-info-header">
+                    <div class="agent-details">
+                        <div class="agent-name">Jim</div>
+                        <div class="physical-desc">Jim is very average</div>
                     </div>
-                    <div class="key-terms">
-                        <div class="key-term anomaly-term">Catalogue </div>
-                        <div class="key-term reality-term">Overbooked </div>
-                        <div class="key-term competency-term">Barista </div>
+                    <div>
+                        <div class="photo-placeholder">
+                            <img src="data:image/jpeg;base64,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" alt="Agent Photo" style="width: 150px; height: 200px; object-fit: cover;">
+                        </div>
+                        <div class="key-terms">
+                            <div class="key-term anomaly-term">Catalogue </div>
+                            <div class="key-term reality-term">Overbooked </div>
+                            <div class="key-term competency-term">Barista </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Anomaly First Contact Report</div>
-                <div class="field-value">Jim found his anomaly</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Agency Acquisition Method</div>
-                <div class="field-value">Jim was hired by the agency</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Anomalous Manifestation Profile</div>
-                <div class="field-value">Confetti appears</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Salary Classification</div>
-                <div class="field-value">$100</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Coffee Preparation Protocol</div>
-                <div class="field-value">Cappuccino</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Team Integration Assessment</div>
-                <div class="field-value">Jim works well with others</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Agent Excel, Adobe, and Google Suite Skills</div>
-                <div class="field-value">Jim knows how to use Excel and Adobe</div>
-            </div>
-            
-            <div class="connections">
-                <div class="connections-title">Personal Network & Emergency Protocols</div>
                 
                 <div class="field">
-                    <div class="field-label">Primary Emergency Contact</div>
-                    <div class="field-value">Jim's Mom</div>
+                    <div class="field-label">Anomaly First Contact Report</div>
+                    <div class="field-value">Jim found his anomaly</div>
                 </div>
                 
                 <div class="field">
-                    <div class="field-label">Known Associate #1</div>
-                    <div class="field-value">Jim's Mom</div>
+                    <div class="field-label">Agency Acquisition Method</div>
+                    <div class="field-value">Jim was hired by the agency</div>
                 </div>
                 
                 <div class="field">
-                    <div class="field-label">Known Associate #2</div>
-                    <div class="field-value">Jim's Brother</div>
+                    <div class="field-label">Anomalous Manifestation Profile</div>
+                    <div class="field-value">Confetti appears</div>
                 </div>
                 
                 <div class="field">
-                    <div class="field-label">Known Associate #3</div>
-                    <div class="field-value">Jim's Best Friend</div>
+                    <div class="field-label">Team Integration Assessment</div>
+                    <div class="field-value">Jim works well with others</div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Benefits</div>
+                    <div class="salary-display">$100 per annum</div>
+                    <div class="sidebar-content">Reality Alteration Access<br>Comprehensive Life Insurance<br>Triangle Agency Basic Dental</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Security Clearance</div>
+                    <div class="clearance-level">Level 7-Alpha</div>
+                    <div class="sidebar-content">Authorized for: Ripple Gun Usage, Anomaly Containment, Class-C Memetic Hazards</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Role</div>
+                    <div class="sidebar-content">Field Agent<br><br>Status: ACTIVE<br>File Updated: 2025-08-15 20:28:10</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Coffee Preparation Protocol</div>
+                    <div class="sidebar-content">Cappuccino</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Technical Competency</div>
+                    <div class="sidebar-content">Jim knows how to use Excel and Adobe</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Emergency Protocols</div>
+                    <div class="sidebar-content">Code Yellow: Revoke Frozen Yogurt Access<br>Code Red: <span class="redacted-bar short" style="display: inline-block; height: 12px; width: 60px; vertical-align: middle;"></span><br>Code Black: <span class="redacted-bar short" style="display: inline-block; height: 12px; width: 80px; vertical-align: middle;"></span></div>
                 </div>
             </div>
         </div>
         
+        <!-- Full-width sections outside the flexbox layout -->
+        <div class="redacted-section" style="margin: 20px 30px;">
+            <div class="redacted-title">Psychological Evaluation Summary</div>
+            <div class="redacted-bar long"></div>
+            <div class="redacted-bar medium"></div>
+            <div class="redacted-bar short"></div>
+            <div class="redacted-bar long"></div>
+            <div class="redacted-bar medium"></div>
+            <div class="redacted-notice">[REDACTED]</div>
+        </div>
+        
+        <div class="connections" style="margin: 20px 30px;">
+            <div class="connections-title">Personal Network</div>
+            
+            <div class="field">
+                <div class="field-label">Primary Emergency Contact</div>
+                <div class="field-value">Jim's Mom</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Known Associate #1</div>
+                <div class="field-value">Jim's Mom</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Known Associate #2</div>
+                <div class="field-value">Jim's Brother</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Known Associate #3</div>
+                <div class="field-value">Jim's Best Friend</div>
+            </div>
+        </div>
+        
         <div class="footer">
-            Generated: 2025-08-14 22:03:17 | Classification Level: RESTRICTED<br>
-            This document contains sensitive information. Distribution limited to authorized personnel only.
+            Classification Level: RESTRICTED<br>
+            This document contains sensitive information. Distribution limited to authorized personnel only.<br>
+            Any unauthorized disclosure is subject to prosecution under the Anomalous Materials Security Act.
         </div>
     </div>
 </body>
