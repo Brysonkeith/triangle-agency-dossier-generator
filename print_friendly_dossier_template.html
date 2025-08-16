@@ -7,27 +7,26 @@
     <style>
         body {
             font-family: 'Courier New', monospace;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-            color: #333;
+            background-color: #fff;
+            margin: 1in;  /* Built-in margins for printing */
+            padding: 0;
+            color: #000;
+            line-height: 1.4;
         }
         
         .dossier {
-            max-width: 900px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
             background-color: #fff;
-            border: 3px solid #000;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            border: 2px solid #000;
             position: relative;
         }
         
         .header {
-            background-color: #000;
-            color: #fff;
-            padding: 20px;
+            border: 2px solid #000;
+            padding: 15px;
             text-align: center;
-            border-bottom: 3px solid #ff0000;
+            border-bottom: 3px solid #000;
         }
         
         .logo {
@@ -37,13 +36,13 @@
         }
         
         .classification {
-            background-color: #ff0000;
-            color: #fff;
+            border: 2px solid #000;
             padding: 5px 10px;
-            margin: 10px 0;
+            margin: 10px auto;
             text-align: center;
             font-weight: bold;
             letter-spacing: 2px;
+            display: inline-block;
         }
         
         .content {
@@ -53,22 +52,22 @@
         
         .main-content {
             flex: 2;
-            padding: 30px 30px 30px 30px;
+            padding: 20px;
         }
         
         .sidebar {
             flex: 1;
-            background-color: #f8f8f8;
-            border-left: 3px solid #ddd;
-            padding: 30px 20px;
-            min-height: 500px;
+            border-left: 2px solid #000;
+            padding: 20px;
         }
         
         .agent-info-header {
             display: flex;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             align-items: flex-start;
             gap: 20px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
         }
         
         .agent-details {
@@ -77,17 +76,17 @@
         }
         
         .agent-name {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             color: #000;
             letter-spacing: 1px;
         }
         
         .physical-desc {
-            line-height: 1.6;
-            color: #333;
+            line-height: 1.5;
+            color: #000;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
@@ -99,7 +98,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f5f5f5;
+            background-color: #fff;
             font-size: 12px;
             text-align: center;
             flex-shrink: 0;
@@ -114,109 +113,91 @@
         }
         
         .key-term {
-            padding: 8px 10px;
+            padding: 6px 8px;
             text-align: center;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 2px;
-            border: 3px solid;
-            font-family: Impact, 'Arial Black', sans-serif;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-        
-        .anomaly-term {
-            background-color: #2196F3 !important;
-            border-color: #0D47A1 !important;
-            color: white !important;
-        }
-        
-        .reality-term {
-            background-color: #FFC107 !important;
-            border-color: #E65100 !important;
-            color: #333 !important;
-        }
-        
-        .competency-term {
-            background-color: #F44336 !important;
-            border-color: #B71C1C !important;
-            color: white !important;
+            font-size: 12px;
+            letter-spacing: 1px;
+            border: 2px solid #000;
+            background-color: #fff;
+            color: #000;
         }
         
         .field {
-            margin-bottom: 25px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 10px;
             width: 100%;
         }
         
         .field-label {
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             color: #000;
-            border-left: 4px solid #ff0000;
-            padding-left: 10px;
+            border-left: 3px solid #000;
+            padding-left: 8px;
+            font-size: 14px;
         }
         
         .field-value {
-            margin-left: 14px;
-            line-height: 1.5;
+            margin-left: 11px;
+            line-height: 1.4;
             word-wrap: break-word;
             white-space: pre-wrap;
             overflow-wrap: break-word;
-            width: auto;
-            display: block;
+            color: #000;
         }
         
         .sidebar-section {
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #000;
         }
         
         .sidebar-title {
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #000;
-            font-size: 14px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
+            font-size: 12px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 3px;
         }
         
         .sidebar-content {
-            margin-left: 14px;
-            font-size: 14px;
-            line-height: 1.4;
+            margin-left: 8px;
+            font-size: 12px;
+            line-height: 1.3;
         }
         
         .salary-display {
-            background-color: #e8f5e8;
-            border: 2px solid #4CAF50;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-        
-        .clearance-level {
-            background-color: #fff3cd;
-            border: 2px solid #ffc107;
+            border: 2px solid #000;
             padding: 8px;
             text-align: center;
             font-weight: bold;
-            margin: 10px 0;
+            font-size: 14px;
+            margin: 8px 0;
+            background-color: #fff;
+        }
+        
+        .clearance-level {
+            border: 2px solid #000;
+            padding: 6px;
+            text-align: center;
+            font-weight: bold;
+            margin: 8px 0;
             text-transform: uppercase;
             letter-spacing: 1px;
+            background-color: #fff;
         }
         
         .redacted-section {
-            margin: 20px 0;
+            margin: 15px 20px;
             padding: 15px;
-            background-color: #f8f8f8;
-            border: 2px solid #ccc;
+            border: 2px solid #000;
+            background-color: #fff;
         }
         
         .redacted-title {
@@ -224,96 +205,116 @@
             text-transform: uppercase;
             margin-bottom: 10px;
             color: #000;
-            border-left: 4px solid #ff0000;
-            padding-left: 10px;
+            border-left: 3px solid #000;
+            padding-left: 8px;
         }
         
         .redacted-bar {
-            background-color: #000;
-            height: 16px;
-            margin: 4px 0;
-            width: 100%;
+            border: 1px solid #000;
+            height: 12px;
+            margin: 3px 0;
+            background-color: #fff;
+            position: relative;
         }
         
-        .redacted-bar.short {
-            width: 60%;
+        .redacted-bar::after {
+            content: "████████████████████████████████████";
+            position: absolute;
+            left: 2px;
+            top: -2px;
+            font-size: 8px;
+            color: #000;
+            overflow: hidden;
         }
         
-        .redacted-bar.medium {
-            width: 80%;
+        .redacted-bar.short::after {
+            content: "████████████████████████";
         }
         
-        .redacted-bar.long {
-            width: 95%;
+        .redacted-bar.medium::after {
+            content: "████████████████████████████████";
+        }
+        
+        .redacted-bar.long::after {
+            content: "████████████████████████████████████";
         }
         
         .redacted-notice {
             font-style: italic;
-            color: #666;
-            font-size: 12px;
-            margin-top: 10px;
+            color: #000;
+            font-size: 11px;
+            margin-top: 8px;
             text-align: center;
+            border: 1px solid #000;
+            padding: 3px;
         }
         
         .connections {
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            padding: 20px;
-            margin-top: 20px;
+            border: 2px solid #000;
+            padding: 15px;
+            margin: 15px 20px;
+            background-color: #fff;
         }
         
         .connections-title {
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: center;
             border-bottom: 2px solid #000;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
         
         .footer {
             text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            color: #666;
-            border-top: 1px solid #ccc;
-            background-color: #f5f5f5;
+            padding: 15px;
+            font-size: 11px;
+            color: #000;
+            border-top: 2px solid #000;
+            margin-top: 10px;
         }
         
         .stamp {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             transform: rotate(15deg);
-            color: #ff0000;
+            color: #000;
             font-weight: bold;
-            border: 3px solid #ff0000;
-            padding: 5px 10px;
-            font-size: 16px;
-            opacity: 0.7;
+            border: 2px solid #000;
+            padding: 4px 8px;
+            font-size: 14px;
+            background-color: #fff;
         }
         
         .file-number {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 10px;
-            color: #666;
+            top: 8px;
+            left: 8px;
+            font-size: 9px;
+            color: #000;
             font-family: 'Courier New', monospace;
         }
         
         .page-number {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 10px;
-            color: #666;
+            bottom: 8px;
+            right: 8px;
+            font-size: 9px;
+            color: #000;
             font-family: 'Courier New', monospace;
         }
         
         @media print {
-            body { margin: 0; }
-            .dossier { box-shadow: none; }
+            body { 
+                margin: 0.5in;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .dossier { 
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
         }
         
         @media (max-width: 768px) {
@@ -322,7 +323,10 @@
             }
             .sidebar {
                 border-left: none;
-                border-top: 3px solid #ddd;
+                border-top: 2px solid #000;
+            }
+            body {
+                margin: 0.5in;
             }
         }
     </style>
@@ -351,9 +355,9 @@
                             {photo}
                         </div>
                         <div class="key-terms">
-                            <div class="key-term anomaly-term">{anomaly}</div>
-                            <div class="key-term reality-term">{reality}</div>
-                            <div class="key-term competency-term">{competency}</div>
+                            <div class="key-term">{anomaly}</div>
+                            <div class="key-term">{reality}</div>
+                            <div class="key-term">{competency}</div>
                         </div>
                     </div>
                 </div>
@@ -409,13 +413,13 @@
                 
                 <div class="sidebar-section">
                     <div class="sidebar-title">Emergency Protocols</div>
-                    <div class="sidebar-content">Code Yellow: Revoke Frozen Yogurt Access<br>Code Red: <span class="redacted-bar short" style="display: inline-block; height: 12px; width: 60px; vertical-align: middle;"></span><br>Code Black: <span class="redacted-bar short" style="display: inline-block; height: 12px; width: 80px; vertical-align: middle;"></span></div>
+                    <div class="sidebar-content">Code Yellow: Revoke Frozen Yogurt Access<br>Code Red: [REDACTED]<br>Code Black: [REDACTED]</div>
                 </div>
             </div>
         </div>
         
         <!-- Full-width sections outside the flexbox layout -->
-        <div class="redacted-section" style="margin: 20px 30px;">
+        <div class="redacted-section">
             <div class="redacted-title">Psychological Evaluation Summary</div>
             <div class="redacted-bar long"></div>
             <div class="redacted-bar medium"></div>
@@ -425,7 +429,7 @@
             <div class="redacted-notice">[REDACTED]</div>
         </div>
         
-        <div class="connections" style="margin: 20px 30px;">
+        <div class="connections">
             <div class="connections-title">Personal Network</div>
             
             <div class="field">
