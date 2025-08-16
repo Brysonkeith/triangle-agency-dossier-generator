@@ -14,11 +14,12 @@
         }
         
         .dossier {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background-color: #fff;
             border: 3px solid #000;
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            position: relative;
         }
         
         .header {
@@ -46,7 +47,21 @@
         }
         
         .content {
-            padding: 30px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .main-content {
+            flex: 2;
+            padding: 30px 30px 30px 30px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            background-color: #f8f8f8;
+            border-left: 3px solid #ddd;
+            padding: 30px 20px;
+            min-height: 500px;
         }
         
         .agent-info-header {
@@ -154,6 +169,92 @@
             display: block;
         }
         
+        .sidebar-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .sidebar-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #000;
+            font-size: 14px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        
+        .sidebar-content {
+            margin-left: 14px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .salary-display {
+            background-color: #e8f5e8;
+            border: 2px solid #4CAF50;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        
+        .clearance-level {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .redacted-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border: 2px solid #ccc;
+        }
+        
+        .redacted-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #000;
+            border-left: 4px solid #ff0000;
+            padding-left: 10px;
+        }
+        
+        .redacted-bar {
+            background-color: #000;
+            height: 16px;
+            margin: 4px 0;
+            width: 100%;
+        }
+        
+        .redacted-bar.short {
+            width: 60%;
+        }
+        
+        .redacted-bar.medium {
+            width: 80%;
+        }
+        
+        .redacted-bar.long {
+            width: 95%;
+        }
+        
+        .redacted-notice {
+            font-style: italic;
+            color: #666;
+            font-size: 12px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
         .connections {
             background-color: #f9f9f9;
             border: 1px solid #ccc;
@@ -192,15 +293,45 @@
             opacity: 0.7;
         }
         
+        .file-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 10px;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 10px;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+        
         @media print {
             body { margin: 0; }
             .dossier { box-shadow: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            .sidebar {
+                border-left: none;
+                border-top: 3px solid #ddd;
+            }
         }
     </style>
 </head>
 <body>
     <div class="dossier">
+        <div class="file-number">FILE: TA-{name}-001</div>
         <div class="stamp">CONFIDENTIAL</div>
+        <div class="page-number">PAGE 1 OF 1</div>
         
         <div class="header">
             <div class="logo">▲ TRIANGLE AGENCY</div>
@@ -209,86 +340,118 @@
         </div>
         
         <div class="content">
-            <div class="agent-info-header">
-                <div class="agent-details">
-                    <div class="agent-name">{name}</div>
-                    <div class="physical-desc">{looks}</div>
-                </div>
-                <div>
-                    <div class="photo-placeholder">
-                        {photo}
+            <div class="main-content">
+                <div class="agent-info-header">
+                    <div class="agent-details">
+                        <div class="agent-name">{name}</div>
+                        <div class="physical-desc">{looks}</div>
                     </div>
-                    <div class="key-terms">
-                        <div class="key-term anomaly-term">{anomaly}</div>
-                        <div class="key-term reality-term">{reality}</div>
-                        <div class="key-term competency-term">{competency}</div>
+                    <div>
+                        <div class="photo-placeholder">
+                            {photo}
+                        </div>
+                        <div class="key-terms">
+                            <div class="key-term anomaly-term">{anomaly}</div>
+                            <div class="key-term reality-term">{reality}</div>
+                            <div class="key-term competency-term">{competency}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <div class="field-label">Anomaly First Contact Report</div>
+                    <div class="field-value">{anomaly_contact}</div>
+                </div>
+                
+                <div class="field">
+                    <div class="field-label">Agency Acquisition Method</div>
+                    <div class="field-value">{agency_contact}</div>
+                </div>
+                
+                <div class="field">
+                    <div class="field-label">Anomalous Manifestation Profile</div>
+                    <div class="field-value">{power_visual}</div>
+                </div>
+                
+                <div class="field">
+                    <div class="field-label">Team Integration Assessment</div>
+                    <div class="field-value">{collaboration}</div>
+                </div>
+                
+                <div class="redacted-section">
+                    <div class="redacted-title">Psychological Evaluation Summary</div>
+                    <div class="redacted-bar long"></div>
+                    <div class="redacted-bar medium"></div>
+                    <div class="redacted-bar short"></div>
+                    <div class="redacted-bar long"></div>
+                    <div class="redacted-bar medium"></div>
+                    <div class="redacted-notice">[REDACTED - CLEARANCE LEVEL OMEGA REQUIRED]</div>
+                </div>
+                
+                <div class="connections">
+                    <div class="connections-title">Personal Network & Emergency Protocols</div>
+                    
+                    <div class="field">
+                        <div class="field-label">Primary Emergency Contact</div>
+                        <div class="field-value">{primary_contact}</div>
+                    </div>
+                    
+                    <div class="field">
+                        <div class="field-label">Known Associate #1</div>
+                        <div class="field-value">{first_connection}</div>
+                    </div>
+                    
+                    <div class="field">
+                        <div class="field-label">Known Associate #2</div>
+                        <div class="field-value">{second_connection}</div>
+                    </div>
+                    
+                    <div class="field">
+                        <div class="field-label">Known Associate #3</div>
+                        <div class="field-value">{third_connection}</div>
                     </div>
                 </div>
             </div>
             
-            <div class="field">
-                <div class="field-label">Anomaly First Contact Report</div>
-                <div class="field-value">{anomaly_contact}</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Agency Acquisition Method</div>
-                <div class="field-value">{agency_contact}</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Anomalous Manifestation Profile</div>
-                <div class="field-value">{power_visual}</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Salary Classification</div>
-                <div class="field-value">{annual_salary}</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Coffee Preparation Protocol</div>
-                <div class="field-value">{coffee}</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Team Integration Assessment</div>
-                <div class="field-value">{collaboration}</div>
-            </div>
-            
-            <div class="field">
-                <div class="field-label">Agent Excel, Adobe, and Google Suite Skills</div>
-                <div class="field-value">{work_experience}</div>
-            </div>
-            
-            <div class="connections">
-                <div class="connections-title">Personal Network & Emergency Protocols</div>
-                
-                <div class="field">
-                    <div class="field-label">Primary Emergency Contact</div>
-                    <div class="field-value">{primary_contact}</div>
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Benefits</div>
+                    <div class="salary-display">{annual_salary} per annum</div>
+                    <div class="sidebar-content">Reality Alteration Access<br>Comprehensive Life Insurance<br>Triangle Agency Basic Dental</div>
                 </div>
                 
-                <div class="field">
-                    <div class="field-label">Known Associate #1</div>
-                    <div class="field-value">{first_connection}</div>
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Security Clearance</div>
+                    <div class="clearance-level">Level 7-Alpha</div>
+                    <div class="sidebar-content">Authorized for: Ripple Gun Usage, Anomaly Containment, Class-C Memetic Hazards</div>
                 </div>
                 
-                <div class="field">
-                    <div class="field-label">Known Associate #2</div>
-                    <div class="field-value">{second_connection}</div>
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Role</div>
+                    <div class="sidebar-content">Field Agent<br><br>Status: ACTIVE<br>File Updated: {timestamp}</div>
                 </div>
                 
-                <div class="field">
-                    <div class="field-label">Known Associate #3</div>
-                    <div class="field-value">{third_connection}</div>
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Coffee Preparation Protocol</div>
+                    <div class="sidebar-content">{coffee}</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Technical Competency</div>
+                    <div class="sidebar-content">{work_experience}</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Emergency Protocols</div>
+                    <div class="sidebar-content">Code Yellow: Revoke Frozen Yogurt Access<br>Code Red: <span class="redacted-bar short" style="display: inline-block; height: 12px; width: 60px; vertical-align: middle;"></span><br>Code Black: <span class="redacted-bar short" style="display: inline-block; height: 12px; width: 80px; vertical-align: middle;"></span></div>
                 </div>
             </div>
         </div>
         
         <div class="footer">
             Generated: {timestamp} | Classification Level: RESTRICTED<br>
-            This document contains sensitive information. Distribution limited to authorized personnel only.
+            This document contains sensitive information. Distribution limited to authorized personnel only.<br>
+            Any unauthorized disclosure is subject to prosecution under the Anomalous Materials Security Act.
         </div>
     </div>
 </body>
