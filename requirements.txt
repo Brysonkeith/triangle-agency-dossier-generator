@@ -15,3 +15,6 @@ odfpy>=1.4.0
 
 # Additional pandas Excel engine support
 xlsxwriter>=3.0.0
+
+# HTML to PDF conversion via Chrome automation
+playwright>=1.40.0

@@ -11,6 +11,11 @@ import argparse
 import base64
 from PIL import Image
 import io
+try:
+    from playwright.sync_api import sync_playwright
+    PLAYWRIGHT_AVAILABLE = True
+except ImportError:
+    PLAYWRIGHT_AVAILABLE = False
 
 def load_agent_data(file_path):
     """Load agent data from Excel, ODS, or CSV file"""
@@ -127,6 +132,43 @@ def load_and_process_photo(agent_name, photos_dir="photos"):
         print(f"Error loading template file '{template_path}': {e}")
         return None
 
+def convert_html_to_pdf(html_content, output_path):
+    """Convert HTML content to PDF using Playwright with Chrome"""
+    if not PLAYWRIGHT_AVAILABLE:
+        print("Error: playwright library not available. Install it with: pip install playwright")
+        print("Note: After installing, run: playwright install chromium")
+        return False
+    
+    try:
+        with sync_playwright() as p:
+            # Launch browser
+            browser = p.chromium.launch()
+            page = browser.new_page()
+            
+            page.set_viewport_size({"width": 2000, "height": 2000})
+            
+            # Set content and wait for fonts/images to load
+            page.set_content(html_content)
+            page.wait_for_load_state('networkidle')
+            
+            # Generate PDF with high-quality settings
+            page.pdf(
+                path=output_path,
+                format='A3',
+                print_background=True,  # Preserve background colors and images
+                prefer_css_page_size=False,
+                scale=1.1  # Larger scale for bigger content
+            )
+            
+            browser.close()
+            print(f"Created PDF: {output_path}")
+            return True
+        
+    except Exception as e:
+        print(f"Error converting HTML to PDF: {e}")
+        print("Make sure Playwright is properly installed: pip install playwright && playwright install chromium")
+        return False
+
 def load_template(template_path):
     """Load HTML template from file"""
     try:
@@ -215,7 +257,7 @@ def generate_dossier_html(agent_data, template, photos_dir="photos"):
         print(f"Error generating dossier for {agent_data.get('Name', 'Unknown')}: {e}")
         return None
 
-def create_dossiers(input_file, template_file="dossier_template.html", output_dir="dossiers", photos_dir="photos"):
+def create_dossiers(input_file, template_file="dossier_template.html", output_dir="dossiers", photos_dir="photos", output_pdf=False):
     """Main function to create dossiers from Excel or CSV data"""
     
     # Load the template
@@ -255,11 +297,20 @@ def create_dossiers(input_file, template_file="dossier_template.html", output_di
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(html_content)
             print(f"Created dossier: {filepath}")
+            
+            # Also create PDF if requested
+            if output_pdf:
+                pdf_filename = f"Agent_{safe_name}_Dossier.pdf"
+                pdf_filepath = os.path.join(output_dir, pdf_filename)
+                convert_html_to_pdf(html_content, pdf_filepath)
+                
         except Exception as e:
             print(f"Error creating dossier for {agent['Name']}: {e}")
     
-    print(f"\nDossier generation complete! Files saved to: {output_dir}/")
-    print("You can now open these HTML files in a browser or convert them to PDF.")
+    output_format = "HTML and PDF" if output_pdf else "HTML"
+    print(f"\nDossier generation complete! {output_format} files saved to: {output_dir}/")
+    if not output_pdf:
+        print("You can now open these HTML files in a browser or convert them to PDF.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate Triangle Agency field agent dossiers')
@@ -267,12 +318,20 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--template', default='dossier_template.html', help='Path to HTML template file (default: dossier_template.html)')
     parser.add_argument('-o', '--output', default='dossiers', help='Output directory (default: dossiers)')
     parser.add_argument('-p', '--photos', default='photos', help='Photos directory (default: photos)')
+    parser.add_argument('--pdf', action='store_true', help='Generate PDF output in addition to HTML')
     
     args = parser.parse_args()
+    
+    # Check if PDF requested but playwright not available
+    if args.pdf and not PLAYWRIGHT_AVAILABLE:
+        print("Error: PDF output requested but playwright library not available.")
+        print("Install it with: pip install playwright")
+        print("Note: After installing, run: playwright install chromium")
+        exit(1)
     
     if not os.path.exists(args.input_file):
         print(f"Error: Input file '{args.input_file}' not found!")
     elif not os.path.exists(args.template):
         print(f"Error: Template file '{args.template}' not found!")
     else:
-        create_dossiers(args.input_file, args.template, args.output, args.photos)
+        create_dossiers(args.input_file, args.template, args.output, args.photos, args.pdf)
